@@ -33,6 +33,10 @@
 			{
 				"name": "Flag5",
 				"type": "nchar"
+			},
+			{
+				"name": "createdate",
+				"type": "date"
 			}
 		],
 		"typeProperties": {
