@@ -1,5 +1,5 @@
 {
-	"name": "AzureSqlTable_PRODUCTCATEGORY",
+	"name": "AzureSqlTable_PRODUCTDESC",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase1",
@@ -41,7 +41,7 @@
 		],
 		"typeProperties": {
 			"schema": "SalesLT",
-			"table": "ProductCategory"
+			"table": "ProductDescription"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
