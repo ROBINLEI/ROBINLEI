@@ -1,0 +1,9 @@
+{
+	"name": "newdf02",
+	"location": "eastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "16d923b6-e5bd-4814-9b6a-81e8187eb382",
+		"tenantId": "dd2a127e-e070-4728-8b1f-34dade14c26d"
+	}
+}
