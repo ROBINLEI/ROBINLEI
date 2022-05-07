@@ -13,6 +13,26 @@
 				"type": "decimal",
 				"precision": 15,
 				"scale": 3
+			},
+			{
+				"name": "Flag1",
+				"type": "nchar"
+			},
+			{
+				"name": "Flag2",
+				"type": "nchar"
+			},
+			{
+				"name": "Flag3",
+				"type": "nchar"
+			},
+			{
+				"name": "Flag4",
+				"type": "nchar"
+			},
+			{
+				"name": "Flag5",
+				"type": "nchar"
 			}
 		],
 		"typeProperties": {
