@@ -39,7 +39,7 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['Month']"
+									"path": "$['$[Month]']"
 								},
 								"sink": {
 									"name": "SalesMonth",
@@ -48,7 +48,7 @@
 							},
 							{
 								"source": {
-									"path": "$['Company']"
+									"path": "$['$[Company]']"
 								},
 								"sink": {
 									"name": "Retailer",
