@@ -15,10 +15,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
 		},
-		"AzureSqlDatabase2_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase2'"
-		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://kvrl.vault.azure.net/"
@@ -99,6 +95,170 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ABS_CSV_CandyShack')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Chapter 3"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "2020-04.csv",
+						"folderPath": "outputfile/azure-data-factory-by-example-main.zip/azure-data-factory-by-example-main/SampleData/CandyShack",
+						"container": "hkdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "SalesMonth",
+						"type": "String"
+					},
+					{
+						"name": "Retailer",
+						"type": "String"
+					},
+					{
+						"name": "Product",
+						"type": "String"
+					},
+					{
+						"name": "SalesValueUSD",
+						"type": "String"
+					},
+					{
+						"name": "UnitsSold",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ABS_CSV_SweetTreats')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Chapter 3"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Sales.csv",
+						"folderPath": "outputfile/azure-data-factory-by-example-main.zip/azure-data-factory-by-example-main/SampleData/SweetTreats/Apr-20",
+						"container": "hkdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "SalesMonth",
+						"type": "String"
+					},
+					{
+						"name": "Retailer",
+						"type": "String"
+					},
+					{
+						"name": "Product",
+						"type": "String"
+					},
+					{
+						"name": "SalesValueUSD",
+						"type": "String"
+					},
+					{
+						"name": "UnitsSold",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ABS_JSON_SugarCube')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Chapter 3"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "April.json",
+						"folderPath": "inputfile/SugarCube/2020/Q2",
+						"container": "hkdata"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"Month": {
+							"type": "string"
+						},
+						"Company": {
+							"type": "string"
+						},
+						"Sales": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"Product": {
+										"type": "string"
+									},
+									"ManufacturerProductCode": {
+										"type": "string"
+									},
+									"Units": {
+										"type": "integer"
+									},
+									"Value": {
+										"type": "number"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -151,157 +311,168 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Parquet_Input')]",
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable_ADDRESS')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
+					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
 				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "NYCTripSmall.parquet",
-						"folderPath": "inputfile",
-						"container": "hkdata"
-					},
-					"compressionCodec": "snappy"
+				"folder": {
+					"name": "Demo"
 				},
+				"annotations": [],
+				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "DateID",
-						"type": "INT32"
+						"name": "Medal",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 3
 					},
 					{
-						"name": "MedallionID",
-						"type": "INT32"
+						"name": "Flag1",
+						"type": "nchar"
 					},
 					{
-						"name": "HackneyLicenseID",
-						"type": "INT32"
+						"name": "Flag2",
+						"type": "nchar"
 					},
 					{
-						"name": "PickupTimeID",
-						"type": "INT32"
+						"name": "Flag3",
+						"type": "nchar"
 					},
 					{
-						"name": "DropoffTimeID",
-						"type": "INT32"
+						"name": "Flag4",
+						"type": "nchar"
 					},
 					{
-						"name": "PickupGeographyID",
-						"type": "INT32"
+						"name": "Flag5",
+						"type": "nchar"
 					},
 					{
-						"name": "DropoffGeographyID",
-						"type": "INT32"
-					},
-					{
-						"name": "PickupLatitude",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "PickupLongitude",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "PickupLatLong",
-						"type": "UTF8"
-					},
-					{
-						"name": "DropoffLatitude",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "DropoffLongitude",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "DropoffLatLong",
-						"type": "UTF8"
-					},
-					{
-						"name": "PassengerCount",
-						"type": "INT32"
-					},
-					{
-						"name": "TripDurationSeconds",
-						"type": "INT32"
-					},
-					{
-						"name": "TripDistanceMiles",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "PaymentType",
-						"type": "UTF8"
-					},
-					{
-						"name": "FareAmount",
-						"type": "DECIMAL",
-						"precision": 19,
-						"scale": 4
-					},
-					{
-						"name": "SurchargeAmount",
-						"type": "DECIMAL",
-						"precision": 19,
-						"scale": 4
-					},
-					{
-						"name": "TaxAmount",
-						"type": "DECIMAL",
-						"precision": 19,
-						"scale": 4
-					},
-					{
-						"name": "TipAmount",
-						"type": "DECIMAL",
-						"precision": 19,
-						"scale": 4
-					},
-					{
-						"name": "TollsAmount",
-						"type": "DECIMAL",
-						"precision": 19,
-						"scale": 4
-					},
-					{
-						"name": "TotalAmount",
-						"type": "DECIMAL",
-						"precision": 19,
-						"scale": 4
+						"name": "createdate",
+						"type": "date"
 					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase2')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
+				],
 				"typeProperties": {
-					"connectionString": "[parameters('AzureSqlDatabase2_connectionString')]",
-					"password": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "AzureKeyVault1",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "dbkey"
-					}
+					"schema": "SalesLT",
+					"table": "Address"
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureKeyVault1')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable_CUSTOMER')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Demo"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Medal",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 3
+					},
+					{
+						"name": "Flag1",
+						"type": "nchar"
+					},
+					{
+						"name": "Flag2",
+						"type": "nchar"
+					},
+					{
+						"name": "Flag3",
+						"type": "nchar"
+					},
+					{
+						"name": "Flag4",
+						"type": "nchar"
+					},
+					{
+						"name": "Flag5",
+						"type": "nchar"
+					},
+					{
+						"name": "createdate",
+						"type": "date"
+					}
+				],
+				"typeProperties": {
+					"schema": "SalesLT",
+					"table": "Customer"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable_CUSTOMERADDRESS')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Demo"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Medal",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 3
+					},
+					{
+						"name": "Flag1",
+						"type": "nchar"
+					},
+					{
+						"name": "Flag2",
+						"type": "nchar"
+					},
+					{
+						"name": "Flag3",
+						"type": "nchar"
+					},
+					{
+						"name": "Flag4",
+						"type": "nchar"
+					},
+					{
+						"name": "Flag5",
+						"type": "nchar"
+					},
+					{
+						"name": "createdate",
+						"type": "date"
+					}
+				],
+				"typeProperties": {
+					"schema": "SalesLT",
+					"table": "CustomerAddress"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
 			]
 		},
 		{
@@ -357,13 +528,16 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlTable_ADDRESS')]",
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable_PRODMODELPRODDESC')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Demo"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
@@ -401,111 +575,7 @@
 				],
 				"typeProperties": {
 					"schema": "SalesLT",
-					"table": "Address"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlTable_CUSTOMER')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "Medal",
-						"type": "decimal",
-						"precision": 15,
-						"scale": 3
-					},
-					{
-						"name": "Flag1",
-						"type": "nchar"
-					},
-					{
-						"name": "Flag2",
-						"type": "nchar"
-					},
-					{
-						"name": "Flag3",
-						"type": "nchar"
-					},
-					{
-						"name": "Flag4",
-						"type": "nchar"
-					},
-					{
-						"name": "Flag5",
-						"type": "nchar"
-					},
-					{
-						"name": "createdate",
-						"type": "date"
-					}
-				],
-				"typeProperties": {
-					"schema": "SalesLT",
-					"table": "Customer"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlTable_CUSTOMERADDRESS')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "Medal",
-						"type": "decimal",
-						"precision": 15,
-						"scale": 3
-					},
-					{
-						"name": "Flag1",
-						"type": "nchar"
-					},
-					{
-						"name": "Flag2",
-						"type": "nchar"
-					},
-					{
-						"name": "Flag3",
-						"type": "nchar"
-					},
-					{
-						"name": "Flag4",
-						"type": "nchar"
-					},
-					{
-						"name": "Flag5",
-						"type": "nchar"
-					},
-					{
-						"name": "createdate",
-						"type": "date"
-					}
-				],
-				"typeProperties": {
-					"schema": "SalesLT",
-					"table": "CustomerAddress"
+					"table": "ProductModelProductDescription"
 				}
 			},
 			"dependsOn": [
@@ -520,6 +590,9 @@
 				"linkedServiceName": {
 					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Demo"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
@@ -573,6 +646,9 @@
 					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Demo"
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [
@@ -625,6 +701,9 @@
 					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Demo"
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [
@@ -669,58 +748,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlTable_PRODMODELPRODDESC')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "Medal",
-						"type": "decimal",
-						"precision": 15,
-						"scale": 3
-					},
-					{
-						"name": "Flag1",
-						"type": "nchar"
-					},
-					{
-						"name": "Flag2",
-						"type": "nchar"
-					},
-					{
-						"name": "Flag3",
-						"type": "nchar"
-					},
-					{
-						"name": "Flag4",
-						"type": "nchar"
-					},
-					{
-						"name": "Flag5",
-						"type": "nchar"
-					},
-					{
-						"name": "createdate",
-						"type": "date"
-					}
-				],
-				"typeProperties": {
-					"schema": "SalesLT",
-					"table": "ProductModelProductDescription"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/AzureSqlTable_SalesOrderDetail')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -728,6 +755,9 @@
 				"linkedServiceName": {
 					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Demo"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
@@ -781,6 +811,9 @@
 					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Demo"
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [
@@ -825,52 +858,60 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/demodata')]",
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable_Sales_LOAD')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
+					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Chapter 3"
+				},
 				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "azure-data-factory-by-example-main.zip",
-						"container": "landing"
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "RowId",
+						"type": "int",
+						"precision": 10
 					},
-					"compression": {
-						"type": "ZipDeflate"
+					{
+						"name": "Retailer",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SalesMonth",
+						"type": "date"
+					},
+					{
+						"name": "Product",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ManufacturerProductCode",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SalesValueUSD",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 2
+					},
+					{
+						"name": "UnitsSold",
+						"type": "int",
+						"precision": 10
 					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Binary_output')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Binary",
+				],
 				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"folderPath": "outputfile",
-						"container": "hkdata"
-					}
+					"schema": "SalesLT",
+					"table": "Sales_LOAD"
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
 			]
 		}
 	]
