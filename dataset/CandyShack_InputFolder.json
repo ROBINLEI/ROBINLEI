@@ -1,0 +1,48 @@
+{
+	"name": "CandyShack_InputFolder",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "outputfile/azure-data-factory-by-example-main.zip/azure-data-factory-by-example-main/SampleData/CandyShack",
+				"container": "hkdata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Retailer",
+				"type": "String"
+			},
+			{
+				"name": "SkuCode",
+				"type": "String"
+			},
+			{
+				"name": "Product",
+				"type": "String"
+			},
+			{
+				"name": "SalesMonth",
+				"type": "String"
+			},
+			{
+				"name": "SalesValue",
+				"type": "String"
+			},
+			{
+				"name": "UnitsSold",
+				"type": "String"
+			}
+		]
+	}
+}
