@@ -31,9 +31,9 @@
 								"value": "$$FILEPATH"
 							},
 							{
-								"name": "PipelineRunId",
+								"name": "RunSeqNo",
 								"value": {
-									"value": "@pipeline().RunId",
+									"value": "@activity('Lookup Seqno').output.firstRow.RunSeqNo",
 									"type": "Expression"
 								}
 							}
