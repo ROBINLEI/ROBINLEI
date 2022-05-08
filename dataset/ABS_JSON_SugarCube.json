@@ -1,0 +1,23 @@
+{
+	"name": "ABS_JSON_SugarCube",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Chapter 3"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "April.json",
+				"folderPath": "inputfile/SugarCube/2020/Q2",
+				"container": "hkdata"
+			}
+		},
+		"schema": {}
+	}
+}
