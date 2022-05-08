@@ -17,6 +17,12 @@
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"value": "https://kvrl.vault.azure.net/"
 		},
+		"AzureKeyVault2_properties_typeProperties_baseUrl": {
+			"value": "https://sitkv.vault.azure.net/"
+		},
+		"AzureBlobStorage2_properties_typeProperties_connectionString_secretName": {
+			"value": "StorageAccountConnectionString"
+		},
 		"containerUri": {
 			"value": ""
 		},
