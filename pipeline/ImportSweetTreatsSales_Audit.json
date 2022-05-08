@@ -189,21 +189,21 @@
 					"storedProcedureParameters": {
 						"FilesRead": {
 							"value": {
-								"value": "@activity('Import sales data').output.FilesRead",
+								"value": "@activity('Import sales data').output.filesRead",
 								"type": "Expression"
 							},
 							"type": "Int32"
 						},
 						"RowsCopied": {
 							"value": {
-								"value": "@activity('Import sales data').output.RowsCopied",
+								"value": "@activity('Import sales data').output.rowsCopied",
 								"type": "Expression"
 							},
 							"type": "Int32"
 						},
 						"RowsRead": {
 							"value": {
-								"value": "@activity('Import sales data').output.RowsRead",
+								"value": "@activity('Import sales data').output.rowsRead",
 								"type": "Expression"
 							},
 							"type": "Int32"
